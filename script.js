@@ -1,6 +1,122 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var currentDayEl = $("#currentDay");
+var timeBlockEl = $(".time-block");
+var hour09 = $("#hour-9")
+var hour10 = $("#hour-10")
+var hour11 = $("#hour-11")
+var hour12 = $("#hour-12")
+var hour13 = $("#hour-13")
+var hour14 = $("#hour-14")
+var hour15 = $("#hour-15")
+var hour16 = $("#hour-16")
+var hour17 = $("#hour-17")
+var hour18 = $("#hour-18")
+var currentHour = dayjs().hour();
+var today = dayjs().day();
+var dayJS = dayjs();
+
+//Display current day
+if (today === 1) {
+  currentDayEl.text("Today is Monday!")
+} else if (today === 2) {
+  currentDayEl.text("Today is Tuesday!")
+} else if (today === 3) {
+  currentDayEl.text("Today is Wednesday!")
+} else if (today === 4) {
+  currentDayEl.text("Today is Thursday!")
+} else if (today === 5) {
+  currentDayEl.text("Today is Friday!")
+} else if (today === 6) {
+  currentDayEl.text("Today is Saturday!")
+} else {
+  currentDayEl.text("Today is Sunday!")
+}
+
+//Display background color based on the hour (past, present, future)
+for (var i = 0; i < timeBlockEl.length; i++) {
+  if (currentHour < 9) {
+    hour09.addClass("future")
+  } else if (currentHour === 9) {
+    hour09.addClass("present")
+  } else {
+    hour09.addClass("future")
+  }
+
+  if (currentHour < 10) {
+    hour10.addClass("future")
+  } else if (currentHour === 10) {
+    hour10.addClass("present")
+  } else {
+    hour10.addClass("future")
+  }
+
+  if (currentHour < 11) {
+    hour11.addClass("future")
+  } else if (currentHour === 11) {
+    hour11.addClass("present")
+  } else {
+    hour11.addClass("future")
+  }
+
+  if (currentHour < 12) {
+    hour12.addClass("future")
+  } else if (currentHour === 12) {
+    hour12.addClass("present")
+  } else {
+    hour12.addClass("future")
+  }
+
+  if (currentHour < 13) {
+    hour13.addClass("future")
+  } else if (currentHour === 13) {
+    hour13.addClass("present")
+  } else {
+    hour13.addClass("future")
+  }
+
+  if (currentHour < 14) {
+    hour14.addClass("future")
+  } else if (currentHour === 14) {
+    hour14.addClass("present")
+  } else {
+    hour14.addClass("future")
+  }
+
+  if (currentHour < 15) {
+    hour15.addClass("future")
+  } else if (currentHour === 15) {
+    hour15.addClass("present")
+  } else {
+    hour15.addClass("future")
+  }
+
+  if (currentHour < 16) {
+    hour16.addClass("future")
+  } else if (currentHour === 16) {
+    hour16.addClass("present")
+  } else {
+    hour16.addClass("future")
+  }
+
+  if (currentHour < 17) {
+    hour17.addClass("future")
+  } else if (currentHour === 17) {
+    hour17.addClass("present")
+  } else {
+    hour17.addClass("future")
+  }
+
+  if (currentHour < 18) {
+    hour18.addClass("future")
+  } else if (currentHour === 18) {
+    hour18.addClass("present")
+  } else {
+    hour18.addClass("future")
+  }
+}
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
