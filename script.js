@@ -2,20 +2,16 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var currentDayEl = $("#currentDay");
+var currentDateEl = $("#currentDate")
 var timeBlockEl = $(".time-block");
-var hour09 = $("#hour-9")
-var hour10 = $("#hour-10")
-var hour11 = $("#hour-11")
-var hour12 = $("#hour-12")
-var hour13 = $("#hour-13")
-var hour14 = $("#hour-14")
-var hour15 = $("#hour-15")
-var hour16 = $("#hour-16")
-var hour17 = $("#hour-17")
-var hour18 = $("#hour-18")
+var saveBtn = $(".saveBtn")
+var description = $(".description")
+var dayJS = dayjs().format('DD/MM/YYYY');
 var currentHour = dayjs().hour();
 var today = dayjs().day();
-var dayJS = dayjs();
+
+//Display date
+currentDateEl.text(dayJS)
 
 //Display current day
 if (today === 1) {
@@ -34,87 +30,11 @@ if (today === 1) {
   currentDayEl.text("Today is Sunday!")
 }
 
-//Display background color based on the hour (past, present, future)
-for (var i = 0; i < timeBlockEl.length; i++) {
-  if (currentHour < 9) {
-    hour09.addClass("future")
-  } else if (currentHour === 9) {
-    hour09.addClass("present")
-  } else {
-    hour09.addClass("future")
-  }
-
-  if (currentHour < 10) {
-    hour10.addClass("future")
-  } else if (currentHour === 10) {
-    hour10.addClass("present")
-  } else {
-    hour10.addClass("future")
-  }
-
-  if (currentHour < 11) {
-    hour11.addClass("future")
-  } else if (currentHour === 11) {
-    hour11.addClass("present")
-  } else {
-    hour11.addClass("future")
-  }
-
-  if (currentHour < 12) {
-    hour12.addClass("future")
-  } else if (currentHour === 12) {
-    hour12.addClass("present")
-  } else {
-    hour12.addClass("future")
-  }
-
-  if (currentHour < 13) {
-    hour13.addClass("future")
-  } else if (currentHour === 13) {
-    hour13.addClass("present")
-  } else {
-    hour13.addClass("future")
-  }
-
-  if (currentHour < 14) {
-    hour14.addClass("future")
-  } else if (currentHour === 14) {
-    hour14.addClass("present")
-  } else {
-    hour14.addClass("future")
-  }
-
-  if (currentHour < 15) {
-    hour15.addClass("future")
-  } else if (currentHour === 15) {
-    hour15.addClass("present")
-  } else {
-    hour15.addClass("future")
-  }
-
-  if (currentHour < 16) {
-    hour16.addClass("future")
-  } else if (currentHour === 16) {
-    hour16.addClass("present")
-  } else {
-    hour16.addClass("future")
-  }
-
-  if (currentHour < 17) {
-    hour17.addClass("future")
-  } else if (currentHour === 17) {
-    hour17.addClass("present")
-  } else {
-    hour17.addClass("future")
-  }
-
-  if (currentHour < 18) {
-    hour18.addClass("future")
-  } else if (currentHour === 18) {
-    hour18.addClass("present")
-  } else {
-    hour18.addClass("future")
-  }
+//Display textValue for local storage in corresponding time-block
+//pull from local storage
+for (var i = 9; i <= 18; i++) {
+  var descriptionInStorage = localStorage.getItem(i);
+  $("#hour-" + i).children("textarea").text(descriptionInStorage);
 }
 
 $(function () {
@@ -124,17 +44,30 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
+  saveBtn.on("click", function(event) {
+    event.preventDefault();
+    var textValue = $(this).siblings("textarea").val();
+    var timeID = $(this).parent().attr("data-hour");
+    //How do I use this to store data for specific time block
+    localStorage.setItem(timeID , textValue);
+  })
   
-  
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
+  // Applys past, present, future colors to associated time blocks
+  timeBlockEl.each(function() {
+    var specificBlock = $(this).attr("data-hour");
+    if (specificBlock < currentHour) {
+      $(this).addClass("past")
+    } else if (specificBlock == currentHour) {
+      $(this).addClass("present")
+    } else {
+      $(this).addClass("future")
+    }
+  })
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //
+
   // TODO: Add code to display the current date in the header of the page.
 });
